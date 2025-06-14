@@ -5,6 +5,7 @@ import { connectDB } from './ConnectDB.js';
 import cors from 'cors';
 import userRoutes from './routes/user.routes.js';
 import cookieParser from "cookie-parser";
+import { checkForAuthCookie } from './middlewares/auth.js';
 
 const app = express();
 app.use(cors({
@@ -24,7 +25,16 @@ const PORT = process.env.PORT || 3000;
 app.get('/', (req, res) => {
     res.send('Hello, World!');
 });
+
 app.use('/api/user', userRoutes);
+app.use(checkForAuthCookie("authToken"));
+
+app.get('/api/user/profile', (req, res) => {
+    res.send({
+        success: true,
+        message: "User profile accessed successfully",
+    });
+});
 
 
 app.listen(PORT,() => {

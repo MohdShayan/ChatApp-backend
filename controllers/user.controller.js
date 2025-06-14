@@ -54,6 +54,7 @@ export const HandleUserSignup = async (req, res) => {
 
 export const HandleUserLogin = async (req, res) => {
     const {email, password} = req.body;
+ 
 
     if(!email || !password){
         return res.status(400).send({
@@ -63,7 +64,8 @@ export const HandleUserLogin = async (req, res) => {
 )
     }
 
-    const token = USER.comparePasswordAndGenerateAuthToken(email, password);
+    const token = await USER.comparePasswordAndGenerateAuthToken(email, password);
+ 
 
     if (!token) {
         return res.status(400).send({
