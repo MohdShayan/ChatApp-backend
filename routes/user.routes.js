@@ -1,13 +1,14 @@
 import express from 'express';
-import { HandleUserSignup, HandleUserLogin } from '../controllers/user.controller';
+import { HandleUserSignup, HandleUserLogin } from '../controllers/user.controller.js';
+import { uploadProfilePic } from '../middlewares/multer.js';
 
 const router = express.Router();
 
-router.get("/user", (req, res) => {
-  res.send("Hello router World");
+router.get("/", (req, res) => {
+  res.send("Hello USER router World");
 });
 
-router.post('/signup',HandleUserSignup);
+router.post('/signup',uploadProfilePic,HandleUserSignup);
 router.post('/login', HandleUserLogin);
 
 export default router;

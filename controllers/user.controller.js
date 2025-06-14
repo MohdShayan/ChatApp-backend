@@ -1,7 +1,8 @@
-import USER from "../models/user.model";
+import USER from "../models/user.model.js";
 
 export const HandleUserSignup = async (req, res) => {
   const { name, email, password } = req.body;
+  
 
   if (!name || !email || !password) {
     return res.status(400).send({
